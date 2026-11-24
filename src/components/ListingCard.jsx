@@ -1,0 +1,29 @@
+import { Link } from 'react-router-dom'
+import { rupiah } from '../lib/supabaseClient'
+
+export default function ListingCard({ listing, isFav, onToggleFav }) {
+  const images = [...(listing.listing_images ?? [])].sort((a, b) => a.position - b.position)
+  const cover = images[0]?.image_url
+
+  return (
+    <article className="overflow-hidden rounded-xl bg-white shadow-sm">
+      <Link to={`/kos/${listing.id}`}>
+        {cover
+          ? <img src={cover} alt={listing.title} className="h-44 w-full object-cover" loading="lazy" />
+          : <div className="grid h-44 place-items-center bg-slate-200 text-sm text-slate-500">Belum ada foto</div>}
+      </Link>
+      <div className="space-y-1 p-4">
+        <div className="flex items-start justify-between gap-2">
+          <Link to={`/kos/${listing.id}`} className="font-bold leading-snug hover:underline">{listing.title}</Link>
+          {onToggleFav && (
+            <button onClick={() => onToggleFav(listing.id)} aria-label="Simpan ke favorit"
+              className="text-xl leading-none text-brass">{isFav ? '★' : '☆'}</button>
+          )}
+        </div>
+        <p className="text-sm text-slate-600">{listing.city} · Kos {listing.gender_type}</p>
+        <p className="font-extrabold text-pine">{rupiah(listing.price_monthly)}<span className="text-xs font-medium text-slate-500"> /bulan</span></p>
+        {listing.status === 'full' && <span className="inline-block rounded bg-red-100 px-2 py-0.5 text-xs font-semibold text-red-700">Penuh</span>}
+      </div>
+    </article>
+  )
+}

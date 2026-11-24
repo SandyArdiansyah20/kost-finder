@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --color-ink: #12262b;
+  --color-pine: #0f5c55;
+  --color-pine-dark: #0a423d;
+  --color-mist: #eef3f2;
+  --color-brass: #c98a1b;
+}
+
+body { @apply bg-mist text-ink font-sans; }
+.input { @apply w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm focus:outline-2 focus:outline-pine; }
+.btn { @apply inline-flex items-center justify-center rounded-lg bg-pine px-4 py-2 text-sm font-semibold text-white hover:bg-pine-dark disabled:opacity-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pine; }
+.btn-ghost { @apply inline-flex items-center justify-center rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-semibold hover:bg-slate-50; }
