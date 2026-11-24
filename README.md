@@ -29,3 +29,6 @@ update public.profiles set role = 'admin' where id = (select id from auth.users 
 - Rata-rata rating di kartu (view `listing_ratings` sudah ada)
 - Verifikasi listing oleh admin
 - Pagination dan full-text search
+
+## Rekomendasi per kota
+Jalankan `supabase/migrations/002_recommendations.sql` di SQL Editor. Skor = rating x ln(1 + jumlah ulasan) + 0,5 x jumlah favorit.

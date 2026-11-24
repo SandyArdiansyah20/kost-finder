@@ -5,6 +5,7 @@ import ListingCard from '../components/ListingCard.jsx'
 import { useFavorites } from '../hooks/useFavorites.js'
 import { useAuth } from '../hooks/useAuth.jsx'
 import { useNavigate } from 'react-router-dom'
+import CityRecommendations from '../components/CityRecommendations.jsx'
 
 export default function Home() {
   const [filters, setFilters] = useState({ city: '', gender: '', min: '', max: '' })
@@ -35,6 +36,7 @@ export default function Home() {
   }, [filters])
 
   const onFav = (id) => (user ? toggle(id) : navigate('/login'))
+  const noFilter = !filters.city && !filters.gender && !filters.min && !filters.max
 
   return (
     <div className="space-y-6">
@@ -43,6 +45,16 @@ export default function Home() {
         <p className="mt-1 text-slate-600">Filter berdasarkan kota, tipe, dan rentang harga.</p>
       </div>
       <FilterBar filters={filters} onChange={setFilters} />
+      {noFilter && (
+        <>
+          <CityRecommendations
+            onPickCity={(city) => setFilters({ ...filters, city })}
+            isFav={(id) => ids.has(id)}
+            onToggleFav={onFav}
+          />
+          <h2 className="text-xl font-extrabold">Semua kos</h2>
+        </>
+      )}
       {error && <p className="rounded bg-red-50 p-3 text-sm text-red-700">Gagal memuat data: {error}</p>}
       {loading ? <p className="text-slate-500">Memuat…</p>
         : listings.length === 0 ? <p className="py-10 text-center text-slate-500">Tidak ada kos yang cocok. Coba ubah filter.</p>
