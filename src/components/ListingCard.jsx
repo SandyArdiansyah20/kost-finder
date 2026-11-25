@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { rupiah } from '../lib/supabaseClient'
 
-export default function ListingCard({ listing, isFav, onToggleFav }) {
+export default function ListingCard({ listing, isFav, onToggleFav, rating, reviews }) {
   const images = [...(listing.listing_images ?? [])].sort((a, b) => a.position - b.position)
   const cover = images[0]?.image_url
 
@@ -21,6 +21,7 @@ export default function ListingCard({ listing, isFav, onToggleFav }) {
           )}
         </div>
         <p className="text-sm text-slate-600">{listing.city} · Kos {listing.gender_type}</p>
+        {reviews > 0 && <p className="text-sm text-brass">★ {rating.toFixed(1)} <span className="text-slate-500">({reviews} ulasan)</span></p>}
         <p className="font-extrabold text-pine">{rupiah(listing.price_monthly)}<span className="text-xs font-medium text-slate-500"> /bulan</span></p>
         {listing.status === 'full' && <span className="inline-block rounded bg-red-100 px-2 py-0.5 text-xs font-semibold text-red-700">Penuh</span>}
       </div>

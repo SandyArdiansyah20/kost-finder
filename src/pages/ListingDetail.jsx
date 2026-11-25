@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link, useParams, useNavigate } from 'react-router-dom'
 import { supabase, rupiah } from '../lib/supabaseClient'
 import { useAuth } from '../hooks/useAuth.jsx'
+import SimilarListings from '../components/SimilarListings.jsx'
 
 export default function ListingDetail() {
   const { id } = useParams()
@@ -118,6 +119,10 @@ export default function ListingDetail() {
         </form>
         {notice && <p className="text-sm text-pine">{notice}</p>}
       </aside>
+
+      <div className="lg:col-span-3">
+        <SimilarListings city={l.city} excludeId={l.id} />
+      </div>
     </div>
   )
 }
