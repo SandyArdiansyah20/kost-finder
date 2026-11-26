@@ -9,6 +9,8 @@ import Favorites from './pages/Favorites.jsx'
 import Dashboard from './pages/owner/Dashboard.jsx'
 import ListingForm from './pages/owner/ListingForm.jsx'
 import Inquiries from './pages/owner/Inquiries.jsx'
+import MyBookings from './pages/MyBookings.jsx'
+import OwnerBookings from './pages/owner/Bookings.jsx'
 
 export default function App() {
   return (
@@ -21,6 +23,8 @@ export default function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/favorites" element={<ProtectedRoute><Favorites /></ProtectedRoute>} />
+          <Route path="/bookings" element={<ProtectedRoute><MyBookings /></ProtectedRoute>} />
+          <Route path="/owner/bookings" element={<ProtectedRoute ownerOnly><OwnerBookings /></ProtectedRoute>} />
           <Route path="/owner" element={<ProtectedRoute ownerOnly><Dashboard /></ProtectedRoute>} />
           <Route path="/owner/new" element={<ProtectedRoute ownerOnly><ListingForm /></ProtectedRoute>} />
           <Route path="/owner/edit/:id" element={<ProtectedRoute ownerOnly><ListingForm /></ProtectedRoute>} />
