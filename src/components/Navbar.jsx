@@ -10,6 +10,7 @@ export default function Navbar() {
       <nav className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3">
         <Link to="/" className="text-xl font-extrabold tracking-tight text-pine">KostFinder</Link>
         <div className="flex items-center gap-2 text-sm">
+          {user && <Link to="/bookings" className="btn-ghost">Booking saya</Link>}
           {user && <Link to="/favorites" className="btn-ghost">Favorit</Link>}
           {isOwner && <Link to="/owner" className="btn-ghost">Kos saya</Link>}
           {user ? (

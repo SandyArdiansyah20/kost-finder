@@ -32,3 +32,11 @@ update public.profiles set role = 'admin' where id = (select id from auth.users 
 
 ## Rekomendasi per kota
 Jalankan `supabase/migrations/002_recommendations.sql` di SQL Editor. Skor = rating x ln(1 + jumlah ulasan) + 0,5 x jumlah favorit.
+
+## Booking dengan durasi dan diskon
+Jalankan `supabase/migrations/003_booking.sql` di SQL Editor.
+- Durasi 1/3/6/12 bulan; diskon durasi ada di tabel `duration_discounts` (3 bln 5%, 6 bln 8%, 12 bln 11%)
+- Kode promo ada di tabel `promos` (contoh `HEMAT10`). Tambah promo lewat SQL Editor:
+  `insert into promos (code, discount_percent, max_discount, min_months) values ('KOSTBARU', 15, 300000, 6);`
+- Harga dihitung di database (`calc_booking_price`), jadi tidak bisa dimanipulasi dari browser
+- Alur: penyewa booking (pending) -> pemilik Terima/Tolak -> kamar berkurang saat diterima

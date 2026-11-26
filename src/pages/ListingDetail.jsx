@@ -3,6 +3,7 @@ import { Link, useParams, useNavigate } from 'react-router-dom'
 import { supabase, rupiah } from '../lib/supabaseClient'
 import { useAuth } from '../hooks/useAuth.jsx'
 import SimilarListings from '../components/SimilarListings.jsx'
+import BookingCard from '../components/BookingCard.jsx'
 
 export default function ListingDetail() {
   const { id } = useParams()
@@ -111,6 +112,7 @@ export default function ListingDetail() {
 
       <aside className="h-fit space-y-4 rounded-xl bg-white p-5 shadow-sm lg:sticky lg:top-20">
         <p className="text-2xl font-extrabold text-pine">{rupiah(l.price_monthly)}<span className="text-sm font-medium text-slate-500"> /bulan</span></p>
+        <BookingCard listing={l} />
         <p className="text-sm text-slate-600">Pemilik: {l.profiles?.full_name}</p>
         {wa && <a href={wa} target="_blank" rel="noreferrer" className="btn w-full">Hubungi lewat WhatsApp</a>}
         <form onSubmit={sendInquiry} className="space-y-2">

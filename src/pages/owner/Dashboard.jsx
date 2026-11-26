@@ -33,6 +33,7 @@ export default function Dashboard() {
       <div className="flex flex-wrap items-center justify-between gap-2">
         <h1 className="text-2xl font-extrabold">Kos saya</h1>
         <div className="flex gap-2">
+          <Link to="/owner/bookings" className="btn-ghost">Booking masuk</Link>
           <Link to="/owner/inquiries" className="btn-ghost">Pesan masuk</Link>
           <Link to="/owner/new" className="btn">Tambah kos</Link>
         </div>
