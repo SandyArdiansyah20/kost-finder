@@ -23,7 +23,17 @@ export default function ListingCard({ listing, isFav, onToggleFav, rating, revie
         <p className="text-sm text-slate-600">{listing.city} · Kos {listing.gender_type}</p>
         {reviews > 0 && <p className="text-sm text-brass">★ {rating.toFixed(1)} <span className="text-slate-500">({reviews} ulasan)</span></p>}
         <p className="font-extrabold text-pine">{rupiah(listing.price_monthly)}<span className="text-xs font-medium text-slate-500"> /bulan</span></p>
-        {listing.status === 'full' && <span className="inline-block rounded bg-red-100 px-2 py-0.5 text-xs font-semibold text-red-700">Penuh</span>}
+        <div className="mt-2">
+          {listing.status === 'full' || listing.room_available <= 0 ? (
+            <span className="text-xs font-medium text-red-600">
+              Kamar Penuh
+            </span>
+          ) : (
+            <span className="text-xs font-medium text-emerald-700">
+              Kamar Tersedia {listing.room_available}
+            </span>
+          )}
+        </div>
       </div>
     </article>
   )
