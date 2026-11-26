@@ -183,3 +183,29 @@ insert into public.facilities (name) values
   ('AC'),('WiFi'),('Kamar mandi dalam'),('Kasur'),('Lemari'),
   ('Parkir motor'),('Parkir mobil'),('Dapur bersama'),('Laundry'),('CCTV')
 on conflict do nothing;
+
+-- 8. FILTER DENGA LISTING TAG-------------------------------
+create or replace view public.listings_with_facilities with (security_invoker = true) as
+select 
+  l.*,
+  coalesce(
+    (
+      select array_agg(f.name)
+      from public.listing_facilities lf
+      join public.facilities f on f.id = lf.facility_id
+      where lf.listing_id = l.id
+    ),
+    '{}'
+  ) as facility_names,
+  coalesce(
+    (
+      select jsonb_agg(
+        jsonb_build_object('image_url', li.image_url, 'position', li.position)
+        order by li.position asc
+      )
+      from public.listing_images li
+      where li.listing_id = l.id
+    ),
+    '[]'::jsonb
+  ) as listing_images
+from public.listings l;
