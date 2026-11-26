@@ -6,6 +6,8 @@ import ListingDetail from './pages/ListingDetail.jsx'
 import Login from './pages/Login.jsx'
 import Register from './pages/Register.jsx'
 import Favorites from './pages/Favorites.jsx'
+import About from './pages/About.jsx'
+import Profile from './pages/Profile.jsx'
 import Dashboard from './pages/owner/Dashboard.jsx'
 import ListingForm from './pages/owner/ListingForm.jsx'
 import Inquiries from './pages/owner/Inquiries.jsx'
@@ -19,9 +21,11 @@ export default function App() {
       <main className="mx-auto max-w-6xl px-4 py-6">
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/tentang" element={<About />} />
           <Route path="/kos/:id" element={<ListingDetail />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
           <Route path="/favorites" element={<ProtectedRoute><Favorites /></ProtectedRoute>} />
           <Route path="/bookings" element={<ProtectedRoute><MyBookings /></ProtectedRoute>} />
           <Route path="/owner/bookings" element={<ProtectedRoute ownerOnly><OwnerBookings /></ProtectedRoute>} />
