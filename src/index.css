@@ -2,25 +2,47 @@
 
 @theme {
   --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
-  --color-ink: #12262b;
+  --color-ink: #10242a;
   --color-pine: #0f5c55;
   --color-pine-dark: #0a423d;
-  --color-mist: #eef3f2;
+  --color-pine-soft: #e3f1ee;
+  --color-mist: #f3f6f5;
   --color-brass: #c98a1b;
 }
 
-body {
-  @apply bg-mist text-ink font-sans;
+html { scroll-behavior: smooth; }
+body { @apply bg-mist text-ink font-sans antialiased; }
+
+/* Di dalam layer components agar utilitas Tailwind (w-32, text-red-600, dll.) tetap bisa menimpa */
+@layer components {
+  .input { @apply w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-sm focus:outline-2 focus:outline-pine; }
+  .btn { @apply inline-flex items-center justify-center gap-2 rounded-xl bg-pine px-4 py-2.5 text-sm font-semibold text-white hover:bg-pine-dark disabled:opacity-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pine; }
+  .btn-ghost { @apply inline-flex items-center justify-center gap-2 rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold hover:bg-slate-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pine; }
+  .chip { @apply inline-flex items-center gap-1.5 rounded-full border border-slate-300 bg-white px-4 py-2 text-sm font-semibold hover:border-pine focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pine; }
+  .chip[aria-pressed="true"] { @apply border-pine bg-pine text-white; }
+
+  /* Latar hijau dengan garis kotak seperti denah kamar. Gradien dan garis dalam satu aturan
+     supaya ukuran tile hanya berlaku untuk garisnya. */
+  .hero-grid {
+    --hero-gradient: linear-gradient(135deg, var(--color-pine-dark), var(--color-pine) 55%, #17776c);
+    background-color: var(--color-pine);
+    background-image:
+      linear-gradient(rgba(255,255,255,.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.07) 1px, transparent 1px),
+      var(--hero-gradient);
+    background-size: 44px 44px, 44px 44px, 100% 100%;
+  }
+  .hero-brass { --hero-gradient: linear-gradient(135deg, #5c3a06, #8f5f0c 60%, #a8700f); }
+  .hero-ink { --hero-gradient: linear-gradient(135deg, #0c1c21, #10242a 50%, #1d4a52); }
+  .skeleton {
+    background: linear-gradient(90deg, #e3e9e7 25%, #eef2f1 40%, #e3e9e7 60%);
+    background-size: 300% 100%;
+    animation: shimmer 1.4s ease-in-out infinite;
+  }
 }
 
-.input {
-  @apply w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm focus:outline-2 focus:outline-pine;
-}
-
-.btn {
-  @apply inline-flex items-center justify-center rounded-lg bg-pine px-4 py-2 text-sm font-semibold text-white hover:bg-pine-dark disabled:opacity-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pine;
-}
-
-.btn-ghost {
-  @apply inline-flex items-center justify-center rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-semibold hover:bg-slate-50;
+@keyframes shimmer { from { background-position: 100% 0; } to { background-position: 0 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .skeleton { animation: none; }
+  html { scroll-behavior: auto; }
 }
